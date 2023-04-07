@@ -1,1 +1,12 @@
+# Build directory
 /build/
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# Direnv
+/.direnv/
+
+# Emscripten chache
+/.emscripten_cache/
