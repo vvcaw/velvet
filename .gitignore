@@ -10,3 +10,4 @@ devenv.local.nix
 
 # Emscripten chache
 /.emscripten_cache/
+.cache/clangd/index
