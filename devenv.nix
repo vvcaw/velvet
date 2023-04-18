@@ -17,6 +17,10 @@
     export EM_CACHE=$DEVENV_ROOT/.emscripten_cache
     mkdir -p $DEVENV_ROOT/build
     cmake -B build -S $DEVENV_ROOT -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    rm -rf $DEVENV_ROOT/build/CMakeFiles/
+    rm $DEVENV_ROOT/build/CMakeCache.txt
+    rm $DEVENV_ROOT/build/cmake_install.cmake
+    rm $DEVENV_ROOT/build/Makefile
   '';
 
   scripts.build.exec = ''
