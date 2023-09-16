@@ -11,3 +11,8 @@ devenv.local.nix
 # Emscripten chache
 /.emscripten_cache/
 .cache/clangd/index
+dist-newstyle
+*.hi
+*.o
+*.wasm
+*.h

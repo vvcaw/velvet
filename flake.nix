@@ -1,16 +1,23 @@
 {
   description = "velvet's decription";
   inputs = {
+# Change this to the current branch or sth
     nixpkgs.url = "github:nixos/nixpkgs/b458e5133fba2c873649f071f7a8dfeae52ebd17";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    wasi-ghc = {
+      url = "git+https://gitlab.haskell.org/ghc/ghc-wasm-meta.git";
+      inputs = {};
+    };
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, wasi-ghc, ... }:
     flake-utils.lib.eachSystem [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ] (system:
       let
+        # This is just how flake-utils generates the outputs
+        generatePackageSet = wasi-ghc.packages.x86_64-linux.wasm32-wasi-cabal-gmp;
         overlays = [ ];
         pkgs =
           import nixpkgs { inherit system overlays; config.allowBroken = true; };
@@ -29,31 +36,19 @@
                 ormolu = workaround140774 super.ormolu;
               };
           };
-
-        project = returnShellEnv:
-          pkgs.haskellPackages.developPackage {
-            inherit returnShellEnv;
-            name = "velvet";
-            root = ./.;
-            withHoogle = false;
-            modifier = drv:
-              pkgs.haskell.lib.addBuildTools drv
-                (with (if system == "aarch64-darwin" then m1MacHsBuildTools else pkgs.haskellPackages); [
-                  # Specify your build/dev dependencies here. 
+      in
+      {
+        # Used by `nix develop` (dev shell)
+        devShell = pkgs.mkShell {
+            packages = (with (if system == "aarch64-darwin" then m1MacHsBuildTools else pkgs.haskellPackages); [
+                  generatePackageSet
                   cabal-fmt
                   cabal-install
                   ghcid
                   haskell-language-server
                   ormolu
                   pkgs.nixpkgs-fmt
-                ]);
-          };
-      in
-      {
-        # Used by `nix build` & `nix run` (prod exe)
-        defaultPackage = project false;
-
-        # Used by `nix develop` (dev shell)
-        devShell = project true;
+            ]);
+        };
       });
 }
