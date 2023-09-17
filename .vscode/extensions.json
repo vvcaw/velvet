@@ -5,6 +5,7 @@
     "haskell.haskell",
     "arrterian.nix-env-selector",
     "bbenoist.nix",
-    "analytic-signal.preview-mp4"
+    "analytic-signal.preview-mp4",
+    "hoovercj.haskell-linter"
   ]
 }
