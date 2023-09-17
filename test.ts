@@ -3,7 +3,7 @@ import WasiContext from "https://deno.land/std/wasi/snapshot_preview1.ts";
 const context = new WasiContext({});
 
 const instance = (
-  await WebAssembly.instantiate(await Deno.readFile("Hello.wasm"), {
+  await WebAssembly.instantiate(await Deno.readFile("src/velvet.wasm"), {
     wasi_snapshot_preview1: context.exports,
   })
 ).instance;

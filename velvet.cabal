@@ -1,4 +1,5 @@
-cabal-version:      3.0
+cabal-version:   3.0
+
 -- The cabal-version field refers to the version of the .cabal specification,
 -- and can be different from the cabal-install (the tool) version and the
 -- Cabal (the library) version you are using. As such, the Cabal (the library)
@@ -11,7 +12,7 @@ cabal-version:      3.0
 --   http://haskell.org/cabal/users-guide/
 --
 -- The name of the package.
-name:               velvet
+name:            velvet
 
 -- The package version.
 -- See the Haskell package versioning policy (PVP) for standards
@@ -20,7 +21,7 @@ name:               velvet
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.1.0.0
+version:         0.1.0.0
 
 -- A short (one-line) description of the package.
 -- synopsis:
@@ -29,81 +30,54 @@ version:            0.1.0.0
 -- description:
 
 -- The license under which the package is released.
-license:            MIT
+license:         MIT
 
 -- The file containing the license text.
-license-file:       LICENSE
+license-file:    LICENSE
 
 -- The package author(s).
-author:             vvcaw
+author:          vvcaw
 
 -- An email address to which users can send suggestions, bug reports, and patches.
-maintainer:         eric.elflein@gmail.com
+maintainer:      eric.elflein@gmail.com
 
 -- A copyright notice.
 -- copyright:
-category:           Web
-build-type:         Simple
+category:        Web
+build-type:      Simple
 
 -- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.
-extra-doc-files:    CHANGELOG.md
+extra-doc-files: CHANGELOG.md
 
 -- Extra source files to be distributed with the package, such as examples, or a tutorial module.
 -- extra-source-files:
 
 common warnings
-    ghc-options: -Wall
+  ghc-options: -Wall
 
 executable velvet
-    -- Import common warning flags.
-    main-is: MyLib.hs
-    import:           warnings
+  -- Import common warning flags.
+  import:           warnings
 
-    -- Modules exported by the library.
-    exposed-modules:  MyLib
+  -- .hs or .lhs file containing the Main module.
+  main-is:          Main.hs
 
-    -- Modules included in this library but not exported.
-    -- other-modules:
+  -- It is required to delete the `dist-newstyle` folder when changing something here, as it only recompiles if source code changes
+  ghc-options:
+    -no-hs-main -optl-mexec-model=reactor
+    "-optl-Wl,--export=hs_init,--export=fib,--export=malloc,--export=free,--export=writeByte,--export=readByte"
 
-    -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
+  -- Modules included in this executable, other than Main.
+  -- other-modules:
 
-    -- Other library packages from which modules are imported.
-    build-depends:    base
+  -- LANGUAGE extensions used by modules in this package.
+  -- other-extensions:
 
-    ghc-options:
-        -no-hs-main -optl-mexec-model=reactor 
-        "-optl-Wl,--export=hs_init"
+  -- Other library packages from which modules are imported.
+  build-depends:    base
 
-    -- Directories containing source files.
-    hs-source-dirs:   lib
+  -- Directories containing source files.
+  hs-source-dirs:   app
 
-    -- Base language which the package is written in.
-    default-language: Haskell2010
-
-test-suite velvet-test
-    -- Import common warning flags.
-    import:           warnings
-
-    -- Base language which the package is written in.
-    default-language: Haskell2010
-
-    -- Modules included in this executable, other than Main.
-    -- other-modules:
-
-    -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
-
-    -- The interface type and version of the test suite.
-    type:             exitcode-stdio-1.0
-
-    -- Directories containing source files.
-    hs-source-dirs:   test
-
-    -- The entrypoint to the test suite.
-    main-is:          Main.hs
-
-    -- Test dependencies.
-    build-depends:
-        base ^>=4.16.4.0,
-        velvet
+  -- Base language which the package is written in.
+  default-language: Haskell2010
