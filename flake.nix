@@ -1,7 +1,7 @@
 {
   description = "velvet's decription";
   inputs = {
-# Change this to the current branch or sth
+    # Change this to the current branch or sth
     nixpkgs.url = "github:nixos/nixpkgs/b458e5133fba2c873649f071f7a8dfeae52ebd17";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
@@ -10,7 +10,7 @@
     };
     wasi-ghc = {
       url = "git+https://gitlab.haskell.org/ghc/ghc-wasm-meta.git";
-      inputs = {};
+      inputs = { };
     };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, wasi-ghc, ... }:
@@ -40,15 +40,15 @@
       {
         # Used by `nix develop` (dev shell)
         devShell = pkgs.mkShell {
-            packages = (with (if system == "aarch64-darwin" then m1MacHsBuildTools else pkgs.haskellPackages); [
-                  generatePackageSet
-                  cabal-fmt
-                  cabal-install
-                  ghcid
-                  haskell-language-server
-                  ormolu
-                  pkgs.nixpkgs-fmt
-            ]);
+          packages = (with (if system == "aarch64-darwin" then m1MacHsBuildTools else pkgs.haskellPackages); [
+            generatePackageSet
+            cabal-fmt
+            cabal-install
+            ghcid
+            haskell-language-server
+            ormolu
+            pkgs.nixpkgs-fmt
+          ]);
         };
       });
 }
