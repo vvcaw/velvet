@@ -16,3 +16,7 @@ dist-newstyle
 *.o
 *.wasm
 *.h
+
+node_modules
+.parcel-cache
+dist

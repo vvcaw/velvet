@@ -19,11 +19,11 @@ context.initialize(instance);
 // any other exported Haskell functions are called.
 instance.exports.hs_init(0, 0);
 
-const malloced = instance.exports.malloc(10);
-instance.exports.writeByte(malloced, 187);
-instance.exports.readByte(malloced);
+//const malloced = instance.exports.malloc(10);
+//instance.exports.writeByte(malloced, 187);
+//instance.exports.readByte(malloced);
 
-instance.exports.free(malloced);
+//instance.exports.free(malloced);
 
-console.log(instance.exports.fib(10));
+console.log(instance.exports.idInt(10));
 

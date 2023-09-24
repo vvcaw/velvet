@@ -61,11 +61,12 @@ executable velvet
 
   -- .hs or .lhs file containing the Main module.
   main-is:          Main.hs
+  c-sources:        cbits/init.c
 
   -- It is required to delete the `dist-newstyle` folder when changing something here, as it only recompiles if source code changes
   ghc-options:
     -no-hs-main -optl-mexec-model=reactor
-    "-optl-Wl,--export=hs_init,--export=mallocBytes,--export=freeBytes,--export=draw,--export=memory"
+    "-optl-Wl,--export=hs_init,--export=mallocBytes,--export=freeBytes,--export=draw,--export=free,--export=malloc,--export=idInt"
 
   -- Modules included in this executable, other than Main.
   -- other-modules:

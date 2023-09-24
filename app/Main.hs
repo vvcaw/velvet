@@ -8,6 +8,12 @@ import Foreign.Storable (peek, poke)
 main :: IO ()
 main = mempty
 
+foreign export ccall idInt :: Int -> Int
+
+idInt :: Int -> Int
+idInt = id
+
+
 foreign export ccall mallocBytes :: Int -> IO (Ptr Word8)
 
 mallocBytes :: Int -> IO (Ptr Word8)

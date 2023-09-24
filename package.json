@@ -1,0 +1,27 @@
+{
+  "name": "velvet",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvcaw/velvet.git"
+  },
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "vvcaw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vvcaw/velvet/issues"
+  },
+  "homepage": "https://github.com/vvcaw/velvet#readme",
+  "dependencies": {
+    "@bjorn3/browser_wasi_shim": "^0.2.3"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  }
+}
