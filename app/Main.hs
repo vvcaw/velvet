@@ -1,28 +1,24 @@
 module Main where
 
 import Data.Word (Word8)
-import Foreign.Marshal.Alloc
+import qualified Foreign.Marshal.Alloc as A
 import Foreign.Ptr (Ptr, plusPtr)
 import Foreign.Storable (peek, poke)
 
 main :: IO ()
 main = mempty
 
-foreign export ccall fib :: Int -> Int
+foreign export ccall mallocBytes :: Int -> IO (Ptr Word8)
 
-fib :: Int -> Int
-fib a = a * a
+mallocBytes :: Int -> IO (Ptr Word8)
+mallocBytes = A.mallocBytes
 
-foreign export ccall readByte :: Ptr Word8 -> IO ()
+foreign export ccall freeBytes :: Ptr Word8 -> IO ()
 
-readByte :: Ptr Word8 -> IO ()
-readByte wp = do
-  val <- peek wp
-  putStrLn $ "Read byte: " ++ (show val)
+freeBytes :: Ptr Word8 -> IO ()
+freeBytes = A.free
 
-foreign export ccall writeByte :: Ptr Word8 -> Word8 -> IO ()
+foreign export ccall draw :: Int -> Int -> Int -> Ptr Word8 -> IO ()
 
-writeByte :: Ptr Word8 -> Word8 -> IO ()
-writeByte wp toWrite = do
-  poke wp toWrite
-  putStrLn $ "Wrote byte: " ++ (show toWrite)
+draw :: Int -> Int -> Int -> Ptr Word8 -> IO ()
+draw width height time ptr = mempty

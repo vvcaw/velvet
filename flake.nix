@@ -48,6 +48,8 @@
             haskell-language-server
             ormolu
             pkgs.nixpkgs-fmt
+            pkgs.watchexec
+            pkgs.nodejs
           ]);
         };
       });
